@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVVM_Simple_Book.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace MVVM_Simple_Book.View
         public MainWindow()
         {
             InitializeComponent();
+            // второй способ привязки данных к виду
+            DataContext = new MainWindowViewModel();
         }
     }
 }
