@@ -9,16 +9,40 @@ namespace MVVM_Simple_Book
 {
     public class DelegateCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        // создаем событие возможности выполнения команды
+        Action<object> execute;
+        Func<object, bool> canExecute;
+
+
+        public event EventHandler CanExecuteChanged
+        {           
+            // подписываемся и отписываемся в менеджере команд
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            if (canExecute != null)
+            {
+                return canExecute(parameter);
+            }
+            return true;
         }
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            if (execute != null)
+            execute (parameter);
+        }
+
+        public DelegateCommand(Action<object> executeAction) : this (executeAction, null)
+        { }
+
+        public DelegateCommand(Action<object> executeAction, Func<object, bool> canExecuteFunc)
+        {
+            canExecute = canExecuteFunc;
+            execute = executeAction;
         }
     }
 }

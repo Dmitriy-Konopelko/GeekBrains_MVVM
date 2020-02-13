@@ -1,10 +1,12 @@
 ﻿using MVVM_Simple_Book.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MVVM_Simple_Book.ViewModel
 {
@@ -13,8 +15,11 @@ namespace MVVM_Simple_Book.ViewModel
         Book[] books;
         Book selectedBook;
 
-        public Book[] Books
-        { get; private set; }
+        // первоначальный вариант создаем массив
+        //public Book[] Books
+        //{ get; private set; }
+        // второй вариант создаем коллекцию
+        public ObservableCollection <Book> Books { get; private set; }
 
         // храним выбранную в форме книгу
         public Book SelectedBook
@@ -41,12 +46,36 @@ namespace MVVM_Simple_Book.ViewModel
         //    }
         //}
 
+        public ICommand AddComand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
+
+
         // создаем конструктор
         public MainWindowViewModel()
         {
-            Books = Book.GetBooks();
+            // первоначальный вариант при использовании массива
+            //Books = Book.GetBooks();
+            // второй вариант при использовании коллекции
+            Books = new ObservableCollection<Book>(Book.GetBooks());
+            AddComand = new DelegateCommand(AddBook);
+            RemoveCommand = new DelegateCommand(RemoveBook, canRemoveBook);
         }
 
+        // добавляем команду
+        void AddBook(object obj)
+        {
+            Books.Add(new Book{ Author = "Новый автор", Title = "Новая книга" });
+        }
+
+        void RemoveBook(object obj)
+        {
+            Books.Remove((Book)obj);
+        }
+
+        bool canRemoveBook(object arg)
+        {
+            return (arg as Book) != null;
+        }
 
         // создаем интерфейс по анналогии с классом Book
         public event PropertyChangedEventHandler PropertyChanged;

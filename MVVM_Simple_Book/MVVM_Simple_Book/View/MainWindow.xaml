@@ -47,7 +47,7 @@
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Command="{Binding Path=AddCommand}">Add</Button>
-            <Button Command="{Binding Path=RemoveCommand}">Delete</Button>
+            <Button Command="{Binding Path=RemoveCommand}" CommandParameter="{Binding Path=SelectedBook}">Delete</Button>
         </StackPanel>
     </Grid>
 </Window>
