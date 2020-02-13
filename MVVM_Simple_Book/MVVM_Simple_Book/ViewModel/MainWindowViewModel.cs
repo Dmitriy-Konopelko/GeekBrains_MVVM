@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MVVM_Simple_Book.ViewModel
@@ -46,7 +47,7 @@ namespace MVVM_Simple_Book.ViewModel
         //    }
         //}
 
-        public ICommand AddComand { get; private set; }
+        public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
 
 
@@ -57,14 +58,15 @@ namespace MVVM_Simple_Book.ViewModel
             //Books = Book.GetBooks();
             // второй вариант при использовании коллекции
             Books = new ObservableCollection<Book>(Book.GetBooks());
-            AddComand = new DelegateCommand(AddBook);
+            AddCommand = new DelegateCommand(AddBook);
             RemoveCommand = new DelegateCommand(RemoveBook, canRemoveBook);
         }
 
         // добавляем команду
         void AddBook(object obj)
         {
-            Books.Add(new Book{ Author = "Новый автор", Title = "Новая книга" });
+            //MessageBox.Show("Добавлена книга", "Внимание!", MessageBoxButton.OK);
+            Books.Add(new Book {Author = "Автор", Title = "Новая книга"});
         }
 
         void RemoveBook(object obj)

@@ -42,8 +42,8 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold">Автор:</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold">Название</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedBook.Author}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedBook.Title}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedBook.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedBook.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Command="{Binding Path=AddCommand}">Add</Button>
