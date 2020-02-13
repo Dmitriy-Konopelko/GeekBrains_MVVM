@@ -57,7 +57,7 @@ namespace MVVM_Simple_Book.Model
                 var dialog = new SaveFileDialog
                 {
                     Title = "Save file ...",
-                    Filter = "Text file (*/txt)|*.txt|All files (*.*)|*.*",
+                    Filter = "Text file (*.txt)|*.txt|All files (*.*)|*.*",
                     InitialDirectory = Environment.CurrentDirectory,
                     RestoreDirectory = true
                 };
@@ -65,7 +65,8 @@ namespace MVVM_Simple_Book.Model
                 file_name = dialog.FileName;
             }
             using (var writer = new StreamWriter(new FileStream(file_name, FileMode.Create, FileAccess.Write)))
-                await writer.WriteAsync(f_text).ConfigureAwait(false);
+                await writer.WriteAsync(f_text).ConfigureAwait(true);
+            FileName = file_name;
         }
 
         private void OnCreateComandExecuted(object obj)

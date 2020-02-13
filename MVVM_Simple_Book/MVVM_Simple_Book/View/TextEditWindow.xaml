@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:MVVM_Simple_Book.View"
         xmlns:l="clr-namespace:MVVM_Simple_Book.Model"
         mc:Ignorable="d"
-        Title="TextEditWindow" Height="450" Width="800">
+        Title="{Binding FileName, StringFormat='Edit - {0}', TargetNullValue='Edit', FallbackValue='TextEditor'}" Height="450" Width="800">
     <Window.DataContext>        
-        <!--<Local:TextEditWindowModel/>-->
+        <l:TextEditWindowModel/>
     </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
