@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MVVM_Simple_Book.Model
@@ -36,6 +37,7 @@ namespace MVVM_Simple_Book.Model
 
         public ICommand CreateCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand QuitCommand { get; } = new LambdaCommand(p => Application.Current.Shutdown());
 
         public TextEditWindowModel()
         {

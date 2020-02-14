@@ -3,21 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVM_Simple_Book.View"
-        xmlns:l="clr-namespace:MVVM_Simple_Book.Model"
+        xmlns:local="clr-namespace:MVVM_Simple_Book"
+        xmlns:lv="clr-namespace:MVVM_Simple_Book.View"
+        xmlns:lm="clr-namespace:MVVM_Simple_Book.Model"
         mc:Ignorable="d"
         Title="{Binding FileName, StringFormat='Edit - {0}', TargetNullValue='Edit', FallbackValue='TextEditor'}" Height="450" Width="800">
     <Window.DataContext>        
-        <l:TextEditWindowModel/>
+        <lm:TextEditWindowModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <local:OpenDialog x:Key="OpenFileDlg" Title="Open file" SelectedFile="{Binding FileName, Mode=OneWayToSource}"/>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding QuitCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveCommand}" CommandParameter="{Binding FileName}"/>
+        <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{Binding SaveCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Source={StaticResource OpenFileDlg}, Path=OpenCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding CreateCommand}"/>
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Create"></MenuItem>
+                <MenuItem Header="Create" Command="{Binding CreateCommand}"></MenuItem>
                 <Separator/>
-                <MenuItem Header="Open"></MenuItem>
-                <MenuItem Header="Save" ></MenuItem>
-                <MenuItem Header="Save as"></MenuItem>
+                <MenuItem Header="Open" Command="{Binding OpenCommand, Source={StaticResource OpenFileDlg}}"></MenuItem>
+                <MenuItem Header="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding FileName}"></MenuItem>
+                <MenuItem Header="Save as" Command="{Binding SaveCommand}"></MenuItem>
                 <Separator/>
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
@@ -26,9 +37,9 @@
         </Menu>
         <ToolBarPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="3">
             <Button Content="New" Command="{Binding CreateCommand}"/>
-            <Button Content="Open"/>
-            <Button Content="Save" Command="{Binding SaveCommand}"/>
-            <Button Content="Save as"/>
+            <Button Content="Open" Command="{Binding OpenCommand, Source={StaticResource OpenFileDlg}}"/>
+            <Button Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding FileName}"/>
+            <Button Content="Save as" Command="{Binding SaveCommand}"/>
         </ToolBarPanel>
         <StatusBar DockPanel.Dock="Bottom"></StatusBar>
         <Grid>

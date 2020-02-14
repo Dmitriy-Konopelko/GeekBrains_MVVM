@@ -56,6 +56,7 @@
     </ApplicationDefinition>
     <Compile Include="LambdaCommand.cs" />
     <Compile Include="Model\TextEditWindowModel.cs" />
+    <Compile Include="OpenDialog.cs" />
     <Compile Include="ViewModel\TextEditWndowViewModel.cs" />
     <Compile Include="View\TextEditWindow.xaml.cs">
       <DependentUpon>TextEditWindow.xaml</DependentUpon>
